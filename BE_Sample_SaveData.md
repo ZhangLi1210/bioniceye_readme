@@ -27,6 +27,7 @@ SaveData 例程中创建的为远程连接实例，故需要确保已经有一�
 直连仿生眼设备需要将个人PC与仿生眼设备相连。具体连接方法根据仿生眼设备的型号决定。
 
 ### 2.2 运行savedata例程
+
 直连_PC_开启仿生眼服务后, _**与直连PC处于同一个局域网下的**_ 远程 _PC_ 设备即可检测到仿生眼存在并进行连接,在远程 _PC_ 设备终端中进行如下操作(* 对应ubuntu系统版本):
 1. `cd path_to_workspace/BionicEyes/bin/`
 2. `./evo_be_Sample_SaveData__*`
@@ -83,8 +84,9 @@ int main(int argc, char *argv[])
 }  
 ```
 此处创建的为远程连接实例。
-***[注]: 若创建直连实例以使用保存数据功能***
-例: `CBionicEyes *device = device->create();`
+
+***[注]: 若创建直连实例以使用保存数据功能***  
+例: `CBionicEyes *device = device->create();`  
 参数: ***openNetworkService 请选择为默认值 true.*** 此参数开启时, 开启直连实例的电脑将被允许可以开启远端服务供远程设备连接, 但若没有远程PC连接时, 并不会提高CPU的使用.
 
 
@@ -102,6 +104,7 @@ int main(int argc, char *argv[])
    ...
 }  
 ```
+
 #### 2.3.3 快速保存数据（saveBeData）
 使用 **saveBeData（）** 函数保存数据是一种**快速保存**的方式，其保存数据时将按照设定的帧率，将每一帧数据都进行保存（远程连接时帧率的稳定性取决于网络传输速度）。
 ```c++
@@ -124,17 +127,18 @@ int main()
 virtual void saveBeData(bool startStop = 1, string folderPath = Be_Io_Path + "fastSave") = 0;
 ```
  - 参数startStop:
- **使用saveBeData()保存数据时，saveBeData函数需要被调用两次:**
-第一次调用：参数startStop须为**true** (1), 调用后，程序开始保存数据流。
-第二次调用：参数startStop须为**false** (0),调用后，程序结束保存。
+ **使用saveBeData()保存数据时，saveBeData函数需要被调用两次:**  
+第一次调用：参数startStop须为**true** (1), 调用后，程序开始保存数据流。  
+第二次调用：参数startStop须为**false** (0),调用后，程序结束保存。  
 **数据开始保存与结束之间的时间，取决于两次调用此函数的时间间隔。**
 
  - 参数folderPath
- folderPath的默认值为:/usr/Evo_BionicEyes/io_path/fastSave, 此参数若不设置，接收的数据将保存在此默认文件夹中，若设置
- 例：`device->saveBeData(1,“/xxx/myfastsave”);  `
- 程序将在设置的保存路径中（/xxx/），尝试新建文件夹 myfastsave（如果myfastsave文件夹存在则不新建），并将接受的数据保存在此文件夹下。
+ folderPath的默认值为:/usr/Evo_BionicEyes/io_path/fastSave, 此参数若不设置，接收的数据将保存在此默认文件夹中，若设置  
+ 例：`device->saveBeData(1,“/xxx/myfastsave”);  `  
+ 程序将在设置的保存路径中（/xxx/），尝试新建文件夹 myfastsave（如果myfastsave文件夹存在则不新建），并将接受的数据保存在此文件夹下。  
 
 使用saveBeData（）函数保存数据的文件夹下存在如下内容：
+
 | 文件或文件夹名称 |          保存内容            |
 |:--:           |                        :--:|
 | Cam_0         |   仿生鹰眼四图之一   |
@@ -142,12 +146,14 @@ virtual void saveBeData(bool startStop = 1, string folderPath = Be_Io_Path + "fa
 | Cam_2         |   仿生鹰眼四图之一或双目仿生眼左右合并图像 |
 | Cam_3         | 仿生鹰眼四图之一 |
 | 0_data.csv    | 仿生眼除图像外的各种数据：图像ID、设备编号、时间戳、IMU数据等 |
-***注意：***
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-使用
-`device->setImageResolution_Transfer(cv::Size(2880,1080));`
-设定使用saveBeData函数获取的双目图像的分辨率时，cv::Size(2880,1080)是左右图合并之后的分辨率，即想要得到单个图像的分辨率是（1440, 1080）时，传入的参数应为（2880,1080）。
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+***注意：***  
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////   
+使用`device->setImageResolution_Transfer(cv::Size(2880,1080));`  
+设定使用saveBeData函数获取的双目图像的分辨率时，  
+cv::Size(2880,1080)是左右图合并之后的分辨率，  
+即想要得到单个图像的分辨率是（1440, 1080）时，传入的参数应为（2880,1080）。  
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #### 2.3.4 间隔帧提取数据((snapBeData)
 当需要在当前帧率下间隔提取帧数据时，可以使snapBeData（）。
@@ -185,17 +191,18 @@ int main()
     ... 
 }
 ```
+
 SnapBeData函数原型如下：
 ```c++
 virtual bool snapBeData(string description="", string folderPath = Be_Io_Path + "snapSave") = 0;
 ```
- - 参数description:
+ - 参数description:  
  使用snapBeData间隔提取帧数据时的说明，在0_data.csv中进行了保存。
 
- - 参数folderPath
- folderPath的默认值为:/usr/Evo_BionicEyes/io_path/fastSave, 此参数若不设置，接收的数据将保存在此默认文件夹中，若设置
- 例：`device->snapBeData("",“/xxx/mysnapsave”);  `
- 程序将在设置的保存路径中（/xxx/），尝试新建文件夹 mysnapsave（如果mysnapsave文件夹存在则不新建），并将接受的数据保存在此文件夹下。
+ - 参数folderPath:  
+ folderPath的默认值为:/usr/Evo_BionicEyes/io_path/fastSave, 此参数若不设置，接收的数据将保存在此默认文件夹中，若设置  
+ 例：`device->snapBeData("",“/xxx/mysnapsave”);  `  
+ 程序将在设置的保存路径中（/xxx/），尝试新建文件夹 mysnapsave（如果mysnapsave文件夹存在则不新建），并将接受的数据保存在此文件夹下。  
 
 使用snapBeData(）函数保存数据的文件夹下存在的内容格式与saveBeData（）相同。
 
@@ -213,9 +220,9 @@ int main()
         if (device->isBeDataReady()) {
           
             BE_GeneralData data = device->getBeData();  
-			// 在这里可以判断当前帧数据是否满足一定的条件，如果满足
-			// 可以使用recordBeData（）将当前帧所有数据进行保存
-		   // 保存格式与saveBeData和snapBeData相同。
+            // 在这里可以判断当前帧数据是否满足一定的条件，如果满足
+            // 可以使用recordBeData（）将当前帧所有数据进行保存
+            // 保存格式与saveBeData和snapBeData相同。
             if(i % 5 == 0)  
                 device->recordBeData(data, "This is record Sample", Be_Io_Path + "recordSave");  
         }  
@@ -224,8 +231,8 @@ int main()
     }  
     ///// record data example in new folder
     //想要在另外一个文件夹下保存满足条件的帧数据
-	  //需要执行device->stopRecordBeData(); 
-	  //并更改文件夹地址，重新执行recordBeData 
+    //需要执行device->stopRecordBeData(); 
+    //并更改文件夹地址，重新执行recordBeData 
     device->stopRecordBeData();  
     msleep(50);  
     while(i < 200)  
@@ -242,18 +249,19 @@ int main()
     ...
     ...     
 }
+
 ```
 recordBeData函数原型如下：
  ```c++
 virtual bool recordBeData(BE_GeneralData &data, string description="", string folderPath = Be_Io_Path + "recordSave") = 0;;
 ```
- - 参数data:
+ - 参数data:   
 使用 *BE_GeneralData* 结构体创建的结构体变量，传输函数时，其保存了使用 *device->getBeData()* 获取的当前帧的仿生眼数据。
 
- - 参数description:
+ - 参数description:  
  使用recordBeData 保存某一帧数据时的说明，在0_data.csv中进行了保存。
  
- - 参数folderPath
- folderPath的默认值为:/usr/Evo_BionicEyes/io_path/fastSave, 此参数若不设置，接收的数据将保存在此默认文件夹中，若设置
- 例：`device->RecordBeData(data,"", “/xxx/myrecordsave”);  `
- 程序将在设置的保存路径中（/xxx/），尝试新建文件夹 myrecordsave（如果myrecordsave文件夹存在则不新建），并将接受的数据保存在此文件夹下。
+ - 参数folderPath:  
+ folderPath的默认值为:/usr/Evo_BionicEyes/io_path/fastSave, 此参数若不设置，接收的数据将保存在此默认文件夹中，若设置  
+ 例：`device->RecordBeData(data,"", “/xxx/myrecordsave”);  `  
+ 程序将在设置的保存路径中（/xxx/），尝试新建文件夹 myrecordsave（如果myrecordsave文件夹存在则不新建），并将接受的数据保存在此文件夹下。  
