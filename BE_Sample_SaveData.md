@@ -40,15 +40,17 @@ SaveData 例程中创建的为远程连接实例，故需要确保已经有一�
 [2023-08-03 10:41:26.319] [BE_Console] [critical] BionicEyes: 0: BinoSense_BE150A28210000  192.168.31.88
 [2023-08-03 10:41:26.319] [BE_Console] [critical] BionicEyes: 1: BinoSense_BE150A28210010  192.168.31.35
 [2023-08-03 10:41:26.319] [BE_Console] [critical] BionicEyes: Please input the device Id(0,1...):
-
 ```
+
 上述终端输出中，显示了远程连接例程检测到了两台仿生眼设备, 并将设备信息进行了输出，输出格式为：
 |         输出信息            |  含义   |
 |:-------------------------:|:-------:|
 |             0/1/2...      | 可选设备编号 |
 | BinoSense_BE150A28210000  | 设备编号    |
 |        192.168.31.88      | 设备IP地址  |
+
 根据输出的可选设备编号，以及设备编号信息，在终端输入0或1、2...即可选择想要连接的设备。
+
 例如选择0号设备，在终端中输入0即可成功连接，如下所示：
 ```
 [2023-08-03 10:41:23.483] [EthernetSpec_Console] [info] EthComSpec: <<requestBeIpAddress>> Request to get be_device ip address...
@@ -62,9 +64,9 @@ SaveData 例程中创建的为远程连接实例，故需要确保已经有一�
 [2023-08-03 11:00:05.726] [BE_Console] [info] BionicEyes: Ready to get remote config file....
 [2023-08-03 11:00:05.727] [BEService_Console] [info] BEService: Request to download config file...
 [2023-08-03 11:00:05.776] [BEService_Console] [info] BEService: BionicEyes config File have got!
-
 ```
-==*注意：每次输出的可选设备编号并不固定，选择想要连接的设备的依据是设备编号（例如 BinoSense_BE150A28210000)*==
+
+***注意：每次输出的可选设备编号并不固定，选择想要连接的设备的依据是设备编号（例如 BinoSense_BE150A28210000)***
 
 
 连接成功后，例程将开始保存仿生眼设备数据。数据的默认保存地址为：
