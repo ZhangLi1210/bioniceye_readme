@@ -3,13 +3,14 @@
 仿生眼系列设备的标定数据储存在仿生眼配置文件中，该例程展示了如何 ***获取标定数据***, ***使用标定数据进行立体矫正*** 并 ***立体匹配获取视差图与深度图***。
 
 ## 2 立体矫正程序使用方法
+
 根据 *path_to_workspace/BionicEyes/README.md* 中的流程成功编译仿生眼workspace后，所有sample程序的可执行文件保存在 *path_to_workspace/BionicEyes/bin/* 目录中，根据 *ubuntu* 操作系统的版本，程序的可执行文件被命名为：
 
 
->evo_be_Sample_StereoRectify_2004
->evo_be_Sample_StereoRectify_1804
+>evo_be_Sample_StereoRectify_2004  
+>evo_be_Sample_StereoRectify_1804  
 >...
-### 2.1 开启远端服务
+### 2.1 开启远端服务 
 立体矫正例程中创建的是远程连接实例 (创建直连实例同样可以获得标定数据), 故在使用时请确保已经有一台*PC*设备直连仿生眼设备并开启了仿生眼服务。具体方法如下:
 
 在直连*PC*的 *path_to_workspace/BionicEyes/bin/* 目录下，根据对应设备不同，运行相应程序：
@@ -26,6 +27,7 @@
 
 ### 2.2 运行立体矫正程序
 直连*PC*开启仿生眼服务后, ***与直连PC处于同一个局域网下的*** 远程 *PC* 设备即可检测到仿生眼存在并进行连接,在远程 *PC* 设备终端中进行如下操作:
+
 #### 2.2.1 进入bin目录
  `cd  path_to_workspace/BionicEyes/bin/`
 #### 2.2.2 运行可执行文件查看help
@@ -56,26 +58,31 @@ static CBionicEyes *create(string ipAddr,
 ```
 远程连接实例的具体使用方法与参数意义在*BE_Sample_Control_Remote* 例程中进行了介绍。
 对于立体矫正例程, -c（或--connect）对应创建远程连接实例时选择参数 BE_Connect_Type type, -s对应创建远程连接实例时选择参数BE_Connect_DataServerType dataServerType, 详细信息如下：
+
 | -c | 可选参数 |对应远程连接实例的参数选择|
 |:---:|:----:|:---:|:---:|
 |    | i  | type = enumConnect_Image |
 |    |  c  | type = enumConnect_Control  |
 |    | ic |type = enumConnect_ImageControl||
+
  **不传入-c选项时, 程序默认type = enumConnect_ImageControl**
+ 
 | -s | 可选参数 |对应远程连接实例的参数选择|
 |:---:|:----:|:---:|
 |    | lo  | dataServerType =  enumLocalServer_Only |
 |    |  lf  | dataServerType =  enumLocalServer_First  |
 |    | do |dataServerType = enumDeviceServer_Only|
 |    | df |dataServerType = enumDeviceServer_First|
+
  **不传入-s选项时, 程序默认dataServerType = enumLocalServer_First**
  
 #### 2.2.3 根据使用场景运行例程
- * 不传入 -sip(或--serverIP) 选项参数时, 程序将自动识别同一局域网下所有远程设备供用户自行选择设备连接
- 例：`./evo_be_Sample_StereoRectify_* -c i -s do`
- * 传入-sip(或--serverIP)选项参数时，程序将直接连接传入IP所对应的仿生眼设备.
- 例: `./evo_be_Sample_StereoRectify_* -c i -s do -sip 192.168.31.88 `
- 注: 如何获取仿生眼设备服务器IP,见 ***evo_be_Sample_GetDeviceList_2004*** 例程。
+
+ * 不传入 -sip(或--serverIP) 选项参数时, 程序将自动识别同一局域网下所有远程设备供用户自行选择设备连接  
+ 例：`./evo_be_Sample_StereoRectify_* -c i -s do`  
+ * 传入-sip(或--serverIP)选项参数时，程序将直接连接传入IP所对应的仿生眼设备.  
+ 例: `./evo_be_Sample_StereoRectify_* -c i -s do -sip 192.168.31.88 `  
+ 注: 如何获取仿生眼设备服务器IP,见 ***evo_be_Sample_GetDeviceList_2004*** 例程。  
  
 ### 2.3 立体矫正Sample程序详解
 #### 2.3.1 创建远程连接实例
@@ -84,13 +91,14 @@ int main(int argc, char *argv[])
 {  
     ...
     if (cmdOptionParser(argc, argv, be_fsm))  
-	    // 传入服务器IP,创建的远程连接实例直接连接IP对应的设备
+        // 传入服务器IP,创建的远程连接实例直接连接IP对应的设备
         be_fsm.device = be_fsm.device->create(be_fsm.server_ipAddr, be_fsm.connect_type, be_fsm.connect_dataServerType, be_fsm.data_transmissionType);  
     else
-        // 不传入IP,创建的远程连接实例将自动识别同一局域网下所有远程设备供用户自行选择设备连接       
+            // 不传入IP,创建的远程连接实例将自动识别同一局域网下所有远程设备供用户自行选择设备连接       
 	    be_fsm.device = be_fsm.device->create(be_fsm.connect_type, be_fsm.connect_dataServerType, be_fsm.data_transmissionType);
    ...
-}  
+}
+
 ```
 #### 2.3.2 初始化设备
 ```c++
@@ -102,7 +110,9 @@ int main(int argc, char *argv[])
    ...
 }   
 ```
+
 立体矫正例程中定义的*initDevice()*函数原型如下：
+
 ```c++
 bool initDevice(BE_FSMState &be_fsm, cv::Mat &canvas)  
 {  
@@ -112,7 +122,7 @@ bool initDevice(BE_FSMState &be_fsm, cv::Mat &canvas)
    //  be_fsm.device->onoff_SV(true);  
    //  be_fsm.device->onoff_VOR(false);
     	
-	be_fsm.device->setImageColor_Transfer(evo_be::enumColor);  
+    be_fsm.device->setImageColor_Transfer(evo_be::enumColor);  
     be_fsm.device->setImageColor(evo_be::enumColor);
     // 获取相机的原始分辨率。 
     auto originalSize = be_fsm.device->getOriginImageResolution();  
