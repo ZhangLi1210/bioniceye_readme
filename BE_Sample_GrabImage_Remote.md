@@ -118,7 +118,7 @@ static CBionicEyes *create(string ipAddr,
                            BE_Data_TransmissionType dataTransmissionType = enumDataTransmission_ASPAP,  
                            void *logger_ptr = NULL);
 ```
-==*创建连接实例的create函数为重载函数，它会根据传入参数的类型自动选择创建连接实例的方法。*==
+***创建连接实例的create函数为重载函数，它会根据传入参数的类型自动选择创建连接实例的方法。***
  以 *BE_Sample_GrabImage_Remote*  例程为例，创建远程连接实例的代码为：
  ```c++
  CBionicEyes *device = device->create(enumConnect_ImageControl, evo_be::enumDeviceServer_Only);
@@ -202,7 +202,7 @@ int main()
 ***BE_GeneralData*** 是定义在头文件 ***evo_be.h*** 的结构体。该结构体中包含了所有仿生眼基础同步数据以及一些读写的内联函数。
 `结构体中的数据成员如下表所示。`
 | 类型 | 成员 | 含义 |
-| ---- | ----   | ---- |
+| :---:|:---:  |:----:|
 | cv::Mat | image[*MAXCAMERASInDEVICE*] |  Mat类数组，用于存放仿生眼设备获取的图像  |
 | uint32_t | id |   唯一全局id |
 | uint32_t | timeStamp |   时间戳（100 us）   |
@@ -213,7 +213,9 @@ int main()
 | float | imuData[*MAXIMUBUFFER*][4] | IMU数据 |
 | double | gpsData[4] |  GPS数据（经度、纬度、高度、GMT） |
 | bool |   isMovingFastly |  获取这些数据时眼睛是否快速移动   |
+
 `表格中定义的常量 *MAXCAMERASInDEVICE* = 4，*MAXIMUBUFFER* = 16。`
+
 **注：Mat 类的数组 *image* 定义为包含四个元素的数组，在连接双目仿生眼时，从仿生眼设备中获取的两张图像会左右拼接为一张图像并存储在 *image[2]* 中。 如果连接的是仿生鹰眼，则从设备中获取的四个图像会分别存储在*image* 数组的四个元素中。同理，*imageFlag* 和 *imageInfo* 的存储逻辑相似。**
 
 ## 3 类 CBionicEyes 一览
