@@ -6,7 +6,7 @@
 根据 *path_to_workspace/BionicEyes/README.md* 中的流程成功编译仿生眼workspace后，所有sample程序的可执行文件保存在 *path_to_workspace/BionicEyes/bin/* 目录中，根据 *ubuntu* 操作系统的版本，程序的可执行文件被命名为：
 
 >evo_be_Sample_GrabImage_Remote_2004  
->evo_be_Sample_GrabImage_Remote_1804
+>evo_be_Sample_GrabImage_Remote_1804  
 >...
 
 ### 2.1 开启远端服务
