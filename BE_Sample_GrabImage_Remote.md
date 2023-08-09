@@ -6,7 +6,7 @@
 根据 *path_to_workspace/BionicEyes/README.md* 中的流程成功编译仿生眼workspace后，所有sample程序的可执行文件保存在 *path_to_workspace/BionicEyes/bin/* 目录中，根据 *ubuntu* 操作系统的版本，程序的可执行文件被命名为：
 
 >evo_be_Sample_GrabImage_Remote_2004  
-evo_be_Sample_GrabImage_Remote_1804
+>evo_be_Sample_GrabImage_Remote_1804
 >...
 
 ### 2.1 开启远端服务
@@ -49,6 +49,7 @@ evo_be_Sample_GrabImage_Remote_1804
 |        192.168.31.88      | 设备IP地址  |
 
 根据输出的可选设备编号，以及设备编号信息，在终端输入0或1、2...即可选择想要连接的设备。
+
 例如选择0号设备，在终端中输入0即可成功连接，如下所示：
 ```
 [2023-08-03 10:41:23.483] [EthernetSpec_Console] [info] EthComSpec: <<requestBeIpAddress>> Request to get be_device ip address...
@@ -94,6 +95,7 @@ int main(int argc, char *argv[])
 }  
 ```
 在仿生眼的SDK中，提供了三种创建连接实例的方法。
+
 **创建直连实例的方法原型为:**
 ```c++
 static CBionicEyes *create(bool openNetworkService = true, int dataDefaultFrameRate = 25, void *logger_ptr = NULL);
