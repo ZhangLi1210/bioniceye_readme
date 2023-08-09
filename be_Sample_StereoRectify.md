@@ -60,7 +60,7 @@ static CBionicEyes *create(string ipAddr,
 对于立体矫正例程, -c（或--connect）对应创建远程连接实例时选择参数 BE_Connect_Type type, -s对应创建远程连接实例时选择参数BE_Connect_DataServerType dataServerType, 详细信息如下：
 
 | -c | 可选参数 |对应远程连接实例的参数选择|
-|:---:|:----:|:---:|:---:|
+|:---:|:----:|:---:|
 |    | i  | type = enumConnect_Image |
 |    |  c  | type = enumConnect_Control  |
 |    | ic |type = enumConnect_ImageControl||
@@ -134,11 +134,12 @@ bool initDevice(BE_FSMState &be_fsm, cv::Mat &canvas)
     // 像分辨率为1024*768,则scale=0.5。 此参数与获取动态标定数据有关。
     be_fsm.scale = 0.5;                        // set whatever imagevR1, vR2, vP1, vP2, vQ; resolution that you need
 	
-	//定义了scale=0.5, 假设相机的原始分辨率2048*1536, scale = 0.5代表 
-	//想要获取的图像的分辨率是1024×768。可以使用
-	//setImageResolution_Transfer方法与setImageResolution方法
-	//对获取的图像的分辨率进行设置。
+    //定义了scale=0.5, 假设相机的原始分辨率2048*1536, scale = 0.5代表 
+    //想要获取的图像的分辨率是1024×768。可以使用
+    //setImageResolution_Transfer方法与setImageResolution方法
+    //对获取的图像的分辨率进行设置。
     cv::Size be_res(be_fsm.imgMaxWidth * 2 * be_fsm.scale, be_fsm.imgMaxHeight * be_fsm.scale);
+
     // 由于传输时，左右两幅图像是合并在一起发送
     // 使用setImageResolution_Transfer与setImageResolution 设置想 
     // 要获取的单个图像的分辨率时,需要将宽×2
@@ -148,7 +149,8 @@ bool initDevice(BE_FSMState &be_fsm, cv::Mat &canvas)
     // setImageResolution方法时,获取的合并图像的分辨率将为（2048,768）
     // 左右单个图像的分辨率为（1024,768）
     be_fsm.device->setImageResolution_Transfer(be_res);  
-    be_fsm.device->setImageResolution(be_res);  
+    be_fsm.device->setImageResolution(be_res);
+
     //上述两种设置分辨率函数的区别在于：
     //setImageResolution_Transfer 设置的分辨率不会影响到
     //使用getbedata（）获取的图像数据， 但会影响到会影响到savebedata()
@@ -170,14 +172,14 @@ bool initDevice(BE_FSMState &be_fsm, cv::Mat &canvas)
         continue;    }  
 		// be_fsm.device->setAbsolutePosition(evo_be::enumAllMotor, std::vector<float>(6, 0.0f).data());
 	    if (be_fsm.data_transmissionType == evo_be::BE_Data_TransmissionType::enumDataTransmission_OneByOne)      
-	    // 如果创建远程实例时，选择参数 dataTransmissionType    
-	    // =enumDataTransmission_OneByOne,则下面是一个依次获取图像
-	    // 数据的简单例程
+        // 如果创建远程实例时，选择参数 dataTransmissionType    
+        // =enumDataTransmission_OneByOne,则下面是一个依次获取图像
+        // 数据的简单例程
         for (int k = 0; k < 5; k++)  
-        {  
-		   // 每次接受下一个图像数据时，需要
-		   // 使用triggerDataTransmission()方法，触发接受下一个图像
-		   // 的信号。  
+        {
+            // 每次接受下一个图像数据时，需要
+            // 使用triggerDataTransmission()方法，触发接受下一个图像
+            // 的信号。  
             be_fsm.device->triggerDataTransmission();  
             be_fsm.device->getBeData();  
             msleep(20);  
@@ -230,17 +232,18 @@ int main(int argc, char *argv[])
 	// 获取标定数据接口后，调用方需要负责释放返回的缓冲区
 	delete[] encoder;  
   
-  // opencv camera and distort matrices. See opencv 	documentation. 
-  // 使用接口根据获得图像的分辨率动态获取相机内参矩阵：
-  // 由于相机内参与图像分辨率相关。
-  // 此时，定义的scale参数为动态获取相机内参的依据。
-  // 若相机原始分辨率2048*1536, 图像的分辨率是1024*768
-  // 则要获取图像分辨率为1024*768时的相机内参矩阵
-  // 则令scale为0.5，依此类推。
+        // opencv camera and distort matrices. See opencv 	documentation. 
+        // 使用接口根据获得图像的分辨率动态获取相机内参矩阵：
+        // 由于相机内参与图像分辨率相关。
+        // 此时，定义的scale参数为动态获取相机内参的依据。
+        // 若相机原始分辨率2048*1536, 图像的分辨率是1024*768
+        // 则要获取图像分辨率为1024*768时的相机内参矩阵
+        // 则令scale为0.5，依此类推。
 	cv::Matx33d K1 = calib->K(calib->eyeId("Left"), scale);  
 	auto D1 = calib->D(calib->eyeId("Left"));  
 	cv::Matx33d K2 = calib->K(calib->eyeId("Right"), scale);  
 	auto D2 = calib->D(calib->eyeId("Right"));
+
 	// K1,K2为左右相机的内参矩阵，D1,D2为左右相机的畸变矩阵
 	// beData 获取的双目图像存储在beData.image[2]中，
 	// 且左右两幅图合并在一起，故需要进行切割获得左右目图像
