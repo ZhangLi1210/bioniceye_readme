@@ -160,17 +160,17 @@ int main()
     ...
     while (1)  
     {  
-	    // 调用isBeDataReady()方法判断设备数据是否准备完毕
-	    // 在调用getBeData()获取数据时需要执行此方法
+        // 调用isBeDataReady()方法判断设备数据是否准备完毕
+        // 在调用getBeData()获取数据时需要执行此方法
         if (device->isBeDataReady())  
         {  
-		   // BE_GeneralData 为保存数据的结构体
-		   // 仿生眼SDK中将所有接收数据的格式与种类集成在
-		   // BE_GeneralData 结构体中
-		   // 通过 BE_GeneralData 结构体创建结构体变量data
-		   // 并执行device->getBeData()即可获取当前仿生眼数据;
-		   // 并存储在结构体变量data的各项结构体成员中
-		   // 包括图像数据、数据、图像ID，时间戳等等
+            // BE_GeneralData 为保存数据的结构体
+            // 仿生眼SDK中将所有接收数据的格式与种类集成在
+            // BE_GeneralData 结构体中
+            // 通过 BE_GeneralData 结构体创建结构体变量data
+            // 并执行device->getBeData()即可获取当前仿生眼数据;
+            // 并存储在结构体变量data的各项结构体成员中
+            // 包括图像数据、数据、图像ID，时间戳等等
             BE_GeneralData data = device->getBeData();  
             for(int i = 0; i< MAXCAMERASInDEVICE; i++)  
             {  
