@@ -174,10 +174,10 @@ int main()
 		    msleep(200);  
 		    i++;  
 		} 
-	    ///// snap data example in new folder  
-	    //想要在另外一个文件夹下保存间隔帧图像时
-	    //需要执行device->stopSnapBeData(); 
-	    //并更改文件夹地址，重新执行snapBeData(）
+                ///// snap data example in new folder  
+	        //想要在另外一个文件夹下保存间隔帧图像时
+	        //需要执行device->stopSnapBeData(); 
+	        //并更改文件夹地址，重新执行snapBeData(）
 		device->stopSnapBeData();  
 		msleep(50);  
 		while(i < 100)  
