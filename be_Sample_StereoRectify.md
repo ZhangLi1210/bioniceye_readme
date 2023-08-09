@@ -94,8 +94,8 @@ int main(int argc, char *argv[])
         // 传入服务器IP,创建的远程连接实例直接连接IP对应的设备
         be_fsm.device = be_fsm.device->create(be_fsm.server_ipAddr, be_fsm.connect_type, be_fsm.connect_dataServerType, be_fsm.data_transmissionType);  
     else
-            // 不传入IP,创建的远程连接实例将自动识别同一局域网下所有远程设备供用户自行选择设备连接       
-	    be_fsm.device = be_fsm.device->create(be_fsm.connect_type, be_fsm.connect_dataServerType, be_fsm.data_transmissionType);
+        // 不传入IP,创建的远程连接实例将自动识别同一局域网下所有远程设备供用户自行选择设备连接       
+        be_fsm.device = be_fsm.device->create(be_fsm.connect_type, be_fsm.connect_dataServerType, be_fsm.data_transmissionType);
    ...
 }
 
