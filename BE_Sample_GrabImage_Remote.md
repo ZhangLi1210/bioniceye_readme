@@ -198,7 +198,7 @@ int main()
     return 0;  
 } 
 ```
-**BE_GeneralData 结构体说明**  
+**BE_GeneralData 结构体说明:**  
 ***BE_GeneralData*** 是定义在头文件 ***evo_be.h*** 的结构体。该结构体中包含了所有仿生眼基础同步数据以及一些读写的内联函数。  
 `结构体中的数据成员如下表所示。`
 | 类型 | 成员 | 含义 |
